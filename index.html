@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irish Wheelchair Rugby</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #169B62;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #169B62;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #169B62 0%, #0D5C3A 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #FF6B35;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: #E55A2B;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #169B62;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: #FF6B35;
+            border-radius: 2px;
+        }
+
+        .subsection {
+            margin: 3rem 0;
+        }
+
+        .subsection h3 {
+            color: #0D5C3A;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .subsection p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #169B62;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #169B62;
+            margin: 2rem 0;
+        }
+
+        .info-box h4 {
+            color: #0D5C3A;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .info-box ul {
+            margin-left: 2rem;
+        }
+
+        .info-box li {
+            margin: 0.5rem 0;
+            font-size: 1.05rem;
+        }
+
+        /* Committee Grid */
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .committee-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .committee-member h4 {
+            color: #169B62;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .committee-member .role {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Player Grid */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .player-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #169B62;
+        }
+
+        .player-card h4 {
+            color: #169B62;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-card .classification {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Club Cards */
+        .club-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            border-top: 5px solid #169B62;
+        }
+
+        .club-card h3 {
+            color: #169B62;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .club-info-item {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .club-info-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #FF6B35;
+            font-weight: bold;
+        }
+
+        .club-info-item strong {
+            color: #0D5C3A;
+        }
+
+        .club-description {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Classification System */
+        .classification-system {
+            background: linear-gradient(135deg, #169B62 0%, #0D5C3A 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .classification-system h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .classification-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .classification-level {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .classification-level .level-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Form */
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0D5C3A;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #169B62;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #169B62;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0D5C3A;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .contact-info h3 {
+            color: #169B62;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: #169B62;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #0D5C3A;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo" onclick="showPage('home')">Irish Wheelchair Rugby 🏉</div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" class="active">Home</a></li>
+                <li><a onclick="showPage('about')">About Us</a></li>
+                <li><a onclick="showPage('national-team')">National Team</a></li>
+                <li><a onclick="showPage('clubs')">Our Clubs</a></li>
+                <li><a onclick="showPage('get-involved')">Get Involved</a></li>
+                <li><a onclick="showPage('contact')">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <h1>Irish Wheelchair Rugby</h1>
+            <p>Experience the intensity, strategy, and camaraderie of one of the most exciting Paralympic sports in Ireland</p>
+            <a class="cta-btn" onclick="showPage('get-involved')">Get Involved Today</a>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">About the Sport</h2>
+            <div class="subsection">
+                <p>Wheelchair rugby is a fast-paced, full-contact sport that combines elements of basketball, handball, and rugby. Originally known as "Murderball," it is a mixed-gender Paralympic sport that emphasizes teamwork, strategy, and athleticism.</p>
+                <p>Irish Wheelchair Rugby proudly represents Ireland in international competition, bringing together athletes from across the island to compete at the highest level.</p>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">🏆</div>
+                    <h3>Elite Competition</h3>
+                    <p>Represent Ireland on the international stage and compete in European and World Championships.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Inclusive Community</h3>
+                    <p>Join a supportive community that welcomes athletes of all abilities and backgrounds.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💪</div>
+                    <h3>Skill Development</h3>
+                    <p>Benefit from expert coaching and training programs that help you reach your potential.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT US PAGE -->
+    <div id="about" class="page">
+        <section class="section">
+            <h2 class="section-title">About Us</h2>
+            
+            <div class="subsection">
+                <h3>Our History</h3>
+                <p>Irish Wheelchair Rugby has been growing steadily over the years, bringing together athletes from across the island to compete in one of the most exciting Paralympic sports. Our organization is dedicated to developing wheelchair rugby at all levels, from grassroots participation to elite international competition.</p>
+                <p>We are committed to providing opportunities for athletes with disabilities to excel in sport, build confidence, and represent Ireland on the world stage. Through the dedication of our players, coaches, volunteers, and supporters, we continue to grow the sport and inspire the next generation.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Our Mission</h3>
+                <div class="info-box">
+                    <ul>
+                        <li>Promote and develop wheelchair rugby throughout Ireland</li>
+                        <li>Provide pathways for athletes from grassroots to elite level</li>
+                        <li>Support our clubs in delivering quality coaching and competition</li>
+                        <li>Represent Ireland with pride in international competition</li>
+                        <li>Foster an inclusive and supportive community for all participants</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Our Committee</h3>
+                <p>Our dedicated committee works tirelessly to support athletes, develop the sport, and create opportunities for wheelchair rugby across Ireland.</p>
+                
+                <div class="committee-grid">
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">President</div>
+                    </div>
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">Vice President</div>
+                    </div>
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">Secretary</div>
+                    </div>
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">Treasurer</div>
+                    </div>
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">Development Officer</div>
+                    </div>
+                    <div class="committee-member">
+                        <div class="card-icon">👤</div>
+                        <h4>[Name]</h4>
+                        <div class="role">Communications Officer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- NATIONAL TEAM PAGE -->
+    <div id="national-team" class="page">
+        <section class="section">
+            <h2 class="section-title">Irish National Team</h2>
+            
+            <div class="subsection">
+                <h3>Representing Ireland on the World Stage</h3>
+                <p>Our national team represents the pinnacle of wheelchair rugby in Ireland. These dedicated athletes train hard, compete internationally, and inspire the next generation of players. They embody the spirit, determination, and excellence that defines Irish sport.</p>
+            </div>
+
+            <div class="subsection">
+                <h3>Coaching Staff</h3>
+                <div class="info-box">
+                    <h4>Team Leadership</h4>
+                    <ul>
+                        <li><strong>Head Coach:</strong> [Name]</li>
+                        <li><strong>Assistant Coach:</strong> [Name]</li>
+                        <li><strong>Team Manager:</strong> [Name]</li>
+                        <li><strong>Physiotherapist:</strong> [Name]</li>
+                        <li><strong>Performance Analyst:</strong> [Name]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Current Squad</h3>
+                <div class="players-grid">
+                    <div class="player-card">
+                        <div class="number">#5</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 2.5</div>
+                        <p>Position: High Pointer | Club: Leinster</p>
+                    </div>
+                    <div class="player-card">
+                        <div class="number">#12</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 1.0</div>
+                        <p>Position: Low Pointer | Club: Rebel Wheelers</p>
+                    </div>
+                    <div class="player-card">
+                        <div class="number">#8</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 3.0</div>
+                        <p>Position: High Pointer | Club: Ulster Barbarians</p>
+                    </div>
+                    <div class="player-card">
+                        <div class="number">#21</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 0.5</div>
+                        <p>Position: Low Pointer | Club: Leinster</p>
+                    </div>
+                    <div class="player-card">
+                        <div class="number">#15</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 2.0</div>
+                        <p>Position: Mid Pointer | Club: Rebel Wheelers</p>
+                    </div>
+                    <div class="player-card">
+                        <div class="number">#7</div>
+                        <h4>[Player Name]</h4>
+                        <div class="classification">Classification: 1.5</div>
+                        <p>Position: Mid Pointer | Club: Ulster Barbarians</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="info-box">
+                    <h4>Upcoming Fixtures & Competitions</h4>
+                    <p>Tournament and competition information will be posted here as it becomes available. Follow our social media channels for the latest updates on the national team's schedule and results.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- OUR CLUBS PAGE -->
+    <div id="clubs" class="page">
+        <section class="section">
+            <h2 class="section-title">Our Clubs</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Irish Wheelchair Rugby has clubs across the country providing opportunities to play at all levels. Each club welcomes new players and volunteers.</p>
+
+            <div class="club-card">
+                <h3>Leinster Wheelchair Rugby</h3>
+                <div class="club-info-item">
+                    <strong>Location:</strong> Dublin
+                </div>
+                <div class="club-info-item">
+                    <strong>Training Times:</strong> Tuesdays & Thursdays, 7:00 PM - 9:00 PM
+                </div>
+                <div class="club-info-item">
+                    <strong>Venue:</strong> National Sports Campus, Abbotstown, Dublin 15
+                </div>
+                <div class="club-info-item">
+                    <strong>Contact:</strong> leinster@irishwheelchairrugby.ie
+                </div>
+                <div class="club-description">
+                    Leinster Wheelchair Rugby is based at the state-of-the-art National Sports Campus in Dublin. We welcome players of all abilities and provide a supportive environment for development. Our experienced coaches work with athletes at all levels, from beginners to international competitors. Training sessions focus on skill development, tactical awareness, and team cohesion.
+                </div>
+            </div>
+
+            <div class="club-card">
+                <h3>Rebel Wheelers Wheelchair Rugby</h3>
+                <div class="club-info-item">
+                    <strong>Location:</strong> Cork
+                </div>
+                <div class="club-info-item">
+                    <strong>Training Times:</strong> Wednesdays, 7:30 PM - 9:30 PM
+                </div>
+                <div class="club-info-item">
+                    <strong>Venue:</strong> Cork Sports Complex, Cork City
+                </div>
+                <div class="club-info-item">
+                    <strong>Contact:</strong> rebelwheelers@irishwheelchairrugby.ie
+                </div>
+                <div class="club-description">
+                    The Rebel Wheelers bring the competitive spirit of Cork to wheelchair rugby. Based in Munster's largest city, we are always looking for new players and supporters. Our club prides itself on creating a welcoming atmosphere where athletes can develop their skills and compete at their chosen level. Join us to experience the excitement of wheelchair rugby in the south of Ireland.
+                </div>
+            </div>
+
+            <div class="club-card">
+                <h3>Ulster Barbarians Wheelchair Rugby</h3>
+                <div class="club-info-item">
+                    <strong>Location:</strong> Belfast
+                </div>
+                <div class="club-info-item">
+                    <strong>Training Times:</strong> Mondays, 7:00 PM - 9:00 PM
+                </div>
+                <div class="club-info-item">
+                    <strong>Venue:</strong> Ulster University Sports Center, Belfast
+                </div>
+                <div class="club-info-item">
+                    <strong>Contact:</strong> ulsterbarbarians@irishwheelchairrugby.ie
+                </div>
+                <div class="club-description">
+                    The Ulster Barbarians represent wheelchair rugby in Northern Ireland. Training at excellent facilities at Ulster University, we are building a strong wheelchair rugby community in the north. Our club welcomes players from across the region and provides opportunities for competition at local and national level. Come and be part of our growing team.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <div class="info-box">
+                    <h4>Interested in Starting a New Club?</h4>
+                    <p>We are always looking to expand wheelchair rugby to new areas of Ireland. If you are interested in starting a club in your region, we can provide:</p>
+                    <ul>
+                        <li>Guidance on club setup and governance</li>
+                        <li>Coaching and classification training</li>
+                        <li>Equipment loans and support</li>
+                        <li>Connection to the national league structure</li>
+                        <li>Marketing and promotional materials</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">Contact us to discuss bringing wheelchair rugby to your community!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- GET INVOLVED PAGE -->
+    <div id="get-involved" class="page">
+        <section class="section">
+            <h2 class="section-title">Get Involved</h2>
+
+            <div class="subsection">
+                <h3>Want to Play Wheelchair Rugby?</h3>
+                <p>Wheelchair rugby is an inclusive, mixed-gender sport that welcomes athletes with a range of physical disabilities. It is fast-paced, strategic, and incredibly fun!</p>
+                
+                <div class="info-box">
+                    <h4>Who Can Play?</h4>
+                    <p><strong>Wheelchair rugby is open to athletes with disabilities that affect the function of their arms and legs, including:</strong></p>
+                    <ul>
+                        <li>Spinal cord injuries (Tetraplegia/Quadriplegia)</li>
+                        <li>Cerebral Palsy</li>
+                        <li>Muscular Dystrophy</li>
+                        <li>Amputations (multiple limb)</li>
+                        <li>Polio</li>
+                        <li>Les Autres (other physical disabilities affecting multiple limbs)</li>
+                    </ul>
+                </div>
+
+                <div class="classification-system">
+                    <h4>Understanding the Classification System</h4>
+                    <p>Players are classified on a points system from 0.5 to 3.5 based on their functional ability. Teams field four players with a maximum total of 8.0 points on court at any time.</p>
+                    
+                    <div class="classification-levels">
+                        <div class="classification-level">
+                            <div class="level-number">0.5</div>
+                            <p>Most significant impairment affecting all four limbs. Limited trunk control and minimal arm function.</p>
+                        </div>
+                        <div class="classification-level">
+                            <div class="level-number">1.0-1.5</div>
+                            <p>Significant impairment with limited trunk control. Some arm and hand function.</p>
+                        </div>
+                        <div class="classification-level">
+                            <div class="level-number">2.0-2.5</div>
+                            <p>Moderate impairment with fair trunk control. Good arm function in at least one limb.</p>
+                        </div>
+                        <div class="classification-level">
+                            <div class="level-number">3.0-3.5</div>
+                            <p>Least significant impairment. Good trunk control and arm function with minimal leg function.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                        <p><strong>Important:</strong> In the Irish League, we welcome non-classifiable players to participate and develop their skills. This provides opportunities for more people to experience the sport while developing towards potential classification.</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Getting Started</h4>
+                    <ul>
+                        <li>Contact one of our clubs (see Our Clubs page)</li>
+                        <li>Come along to a training session - no commitment required</li>
+                        <li>Try the sport in one of our specially designed sports wheelchairs</li>
+                        <li>Learn from experienced players and coaches</li>
+                        <li>Progress at your own pace in a supportive environment</li>
+                        <li>No previous wheelchair rugby experience needed!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Volunteer With Us</h3>
+                <p>Irish Wheelchair Rugby relies on dedicated volunteers to support our athletes, run events, and grow the sport. Whether you have a few hours a month or want to get more involved, we would love to hear from you!</p>
+                
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-icon">🏅</div>
+                        <h3>Coaching</h3>
+                        <p>Help develop players at club and national level. Full training and certification provided.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h3>Officials</h3>
+                        <p>Become a referee or table official. Essential for running competitions and matches.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h3>Classification</h3>
+                        <p>Train to become a classifier. Medical background helpful but not required.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎪</div>
+                        <h3>Event Support</h3>
+                        <p>Help run tournaments and competitions. Great way to get involved on match days.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💼</div>
+                        <h3>Administration</h3>
+                        <p>Support with club and national operations, from finance to communications.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📸</div>
+                        <h3>Media</h3>
+                        <p>Photography, social media, PR, and content creation to promote the sport.</p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <p><strong>No experience necessary for many roles - full training provided!</strong></p>
+                    <p>Contact us today to find out how you can contribute to the growth of wheelchair rugby in Ireland.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT US PAGE -->
+    <div id="contact" class="page">
+        <section class="section">
+            <h2 class="section-title">Contact Us</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; text-align: center;">Get in touch with Irish Wheelchair Rugby. Whether you're interested in playing, volunteering, sponsoring, or just want to learn more about the sport, we'd love to hear from you!</p>
+
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>General Enquiries:</strong></p>
+                    <p><a href="mailto:info@irishwheelchairrugby.ie">info@irishwheelchairrugby.ie</a></p>
+                    
+                    <p style="margin-top: 1.5rem;"><strong>Sponsorship:</strong></p>
+                    <p><a href="mailto:sponsorship@irishwheelchairrugby.ie">sponsorship@irishwheelchairrugby.ie</a></p>
+                    
+                    <p style="margin-top: 1.5rem;"><strong>Media Enquiries:</strong></p>
+                    <p><a href="mailto:media@irishwheelchairrugby.ie">media@irishwheelchairrugby.ie</a></p>
+                </div>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h4>Follow Us on Social Media</h4>
+                    <p>Stay updated with the latest news, results, and events:</p>
+                    <p><strong>Facebook:</strong> [Link to be added]</p>
+                    <p><strong>Instagram:</strong> [Link to be added]</p>
+                    <p><strong>Twitter:</strong> [Link to be added]</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Irish Wheelchair Rugby. All rights reserved.</p>
+        <p>Affiliated with World Wheelchair Rugby</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav active state
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
