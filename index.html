@@ -61,6 +61,16 @@
             color: #169B62;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #169B62;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
         /* Page Container */
         .page {
             display: none;
@@ -464,8 +474,39 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav {
+                position: relative;
             }
 
             .hero h1 {
@@ -487,7 +528,8 @@
     <header>
         <nav>
             <div class="logo" onclick="showPage('home')">Irish Wheelchair Rugby 🏉</div>
-            <ul class="nav-links">
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navMenu">
                 <li><a onclick="showPage('home')" class="active">Home</a></li>
                 <li><a onclick="showPage('about')">About Us</a></li>
                 <li><a onclick="showPage('national-team')">National Team</a></li>
@@ -934,10 +976,19 @@
             // Update nav active state
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            
+            // Close mobile menu
+            document.getElementById('navMenu').classList.remove('active');
             
             // Scroll to top
             window.scrollTo(0, 0);
+        }
+
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
         }
 
         function handleSubmit(event) {
@@ -945,6 +996,17 @@
             alert('Thank you for your message! We will get back to you soon.');
             event.target.reset();
         }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (!nav.contains(event.target) && !menuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
