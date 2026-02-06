@@ -40,6 +40,14 @@
             font-weight: bold;
             color: #169B62;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
         }
 
         .nav-links {
@@ -291,10 +299,22 @@
             border-top: 5px solid #169B62;
         }
 
+        .club-logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .club-logo-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
         .club-card h3 {
             color: #169B62;
             font-size: 2rem;
             margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         .club-info-item {
@@ -527,7 +547,10 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="showPage('home')">Irish Wheelchair Rugby 🏉</div>
+            <div class="logo" onclick="showPage('home')">
+                <img src="https://i.postimg.cc/xdQg6gFh/iwr-logo.png" alt="Irish Wheelchair Rugby" class="logo-img">
+                <span>Irish Wheelchair Rugby</span>
+            </div>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navMenu">
                 <li><a onclick="showPage('home')" class="active">Home</a></li>
@@ -745,6 +768,9 @@
             <p style="font-size: 1.1rem; margin-bottom: 2rem;">Irish Wheelchair Rugby has clubs across the country providing opportunities to play at all levels. Each club welcomes new players and volunteers.</p>
 
             <div class="club-card">
+                <div class="club-logo-container">
+                    <img src="https://i.postimg.cc/yx37Fshh/leinster-logo.png" alt="Leinster Wheelchair Rugby Logo" class="club-logo-img">
+                </div>
                 <h3>Leinster Wheelchair Rugby</h3>
                 <div class="club-info-item">
                     <strong>Location:</strong> Dublin
@@ -764,6 +790,9 @@
             </div>
 
             <div class="club-card">
+                <div class="club-logo-container">
+                    <img src="https://i.postimg.cc/mDH5tbqq/rebel.jpg" alt="Rebel Wheelers Logo" class="club-logo-img">
+                </div>
                 <h3>Rebel Wheelers Wheelchair Rugby</h3>
                 <div class="club-info-item">
                     <strong>Location:</strong> Cork
@@ -783,6 +812,9 @@
             </div>
 
             <div class="club-card">
+                <div class="club-logo-container">
+                    <img src="https://i.postimg.cc/mZMQyZ3n/ulster-barbarians-logo.png" alt="Ulster Barbarians Logo" class="club-logo-img">
+                </div>
                 <h3>Ulster Barbarians Wheelchair Rugby</h3>
                 <div class="club-info-item">
                     <strong>Location:</strong> Belfast
